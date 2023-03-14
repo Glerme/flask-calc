@@ -87,28 +87,30 @@ def power():
 
 
 # Média Aritmética
-@app.route('/mean')
+@app.route('/mean', methods=['POST'])
 def mean():
-    numbers = request.args.getlist('numbers')
+    content = request.json
+    numbers = content['numbers']
     numbers = [float(n) for n in numbers]
     result = sum(numbers) / len(numbers)
     return jsonify(result=result)
 
 
 # Média Harmônica
-@app.route('/harmonic-mean')
+@app.route('/harmonic-mean', methods=['POST'])
 def harmonic_mean():
-    numbers = request.args.getlist('numbers')
+    content = request.json
+    numbers = content['numbers']
     numbers = [float(n) for n in numbers]
     result = len(numbers) / sum(1/n for n in numbers)
     return jsonify(result=result)
 
 
 # Moda
-@app.route('/mode')
+@app.route('/mode', methods=['POST'])
 def mode():
-    numbers = request.args.getlist('numbers')
-    numbers = [float(n) for n in numbers]
+    content = request.json
+    numbers = content['numbers']
     result = statistics.mode(numbers)
     return jsonify(result=result)
 
