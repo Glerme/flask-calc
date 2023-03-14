@@ -1,28 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import statistics
-
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
-    return '''
-    <h1>Calculadora</h1>
-
-    <p> Escolha uma das operações e envie o número junto. </p>
-    <p> /add?num1=&num2= </p>
-    <p> /subtract?num1=&num2= </p>
-    <p> /multiply?num1=&num2= </p>
-    <p> /divide?num1=&num2= </p>
-    <p> /divide?num1=&num2= </p>
-    <p> /square-root?num= </p>
-    <p> /power?num=&power= </p>
-    <p> /mean?numbers=[1,2,3] </p>
-    <p> /harmonic-mean?numbers=[1,2,3] </p>
-    <p> /mode?numbers=[1,2,3] </p>
-
-    '''
+    return render_template('index.html')
 
 
 # Adição
@@ -101,7 +85,6 @@ def mean():
 def harmonic_mean():
     content = request.json
     numbers = content['numbers']
-    numbers = [float(n) for n in numbers]
     result = len(numbers) / sum(1/n for n in numbers)
     return jsonify(result=result)
 
